@@ -11,37 +11,38 @@ import jsonp from "jsonp";
 
 let options = {
   title: {
-    text: "肺炎",
-    link: "/"
+    text: "新型冠状病毒肺炎"
   },
   series: [
     {
-      name: "确诊人数",
       type: "map",
+      name: "确诊人数",
       map: "china",
-      lable: {
+      label: {
         // 地区文字
         show: true,
-        fontSize: 10,
-        color: "#333"
+        color: "#000",
+        fontSize: 13
       },
       zoom: 1.2,
-      room: true,
       itemStyle: {
         // 地图板块
-        areaColor: "#ccc",
-        borderColor: "blank"
+        areaColor: "#eee",
+        borderColor: "#ccc"
       },
       emphasis: {
         //鼠标滑过
-        lable: {
+        label: {
+          // 地区文字
+          show: true,
           color: "#fff",
-          fontSize: 12
+          fontSize: 16
         },
         itemStyle: {
           areaColor: "#83b5e7"
         }
       },
+      roam: true,
       data: []
     }
   ],
@@ -91,18 +92,17 @@ export default {
   },
   methods: {
     getinfo() {
-      json(
+      jsonp(
         "https://interface.sina.cn/news/wap/fymap2020_data.d.json?_=1580892522427&callback=__jp0",
         {},
         (err, data) => {
           if (!err) {
-            console.log(data);
             let list = data.data.list.map(item => ({
               name: item.name,
               value: item.value
             }));
             options.series[0].data = list;
-            this.myechart.setOptions(options);
+            this.myechart.setOption(options);
           }
         }
       );
@@ -111,7 +111,7 @@ export default {
   mounted() {
     this.getinfo();
     this.myechart = echarts.init(this.$refs.echarts);
-    this.myechart.setOptions(options);
+    this.myechart.setOption(options);
   }
 };
 </script>

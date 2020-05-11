@@ -1,12 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <echarts></echarts>
   </div>
 </template>
 
 <script>
-
+import echarts from "../components/echarts";
 export default {
-  name: 'Home',
-}
+  name: "Home",
+  components: {
+    echarts
+  }
+};
 </script>
+<style>
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
